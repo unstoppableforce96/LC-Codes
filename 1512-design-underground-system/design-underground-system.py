@@ -5,22 +5,23 @@ class UndergroundSystem:
         self.stations = {}
 
     def checkIn(self, id: int, stationName: str, t: int) -> None:
-        self.customers[id] = (stationName, t)
+        self.customers[id] = (stationName, t) # key-id, value-> (stationName, t)
 
     def checkOut(self, id: int, stationName: str, t: int) -> None:
-        if id in self.customers.keys():
-            ans = self.customers[id][0], stationName
-            if ans in self.stations.keys():
-                newSum = self.stations[ans][0] + (t - self.customers[id][1] )
-                newCount = self.stations[ans][1] + 1
-                self.stations[ans] = (newSum, newCount)
-            else:
-                self.stations[ans] = (t - self.customers[id][1], 1)
-            self.customers.pop(id)
+        # Pop out the customer from custmers map since the ride / trip is over
+        startStation, startTime = self.customers.pop(id)
+        trip = startStation, stationName # stationName here is end station, it's cout
+        if trip in self.stations:
+            # increment the time by new sum
+            # increment the count of trips by 1
+            self.stations[trip][0] += (t - startTime)
+            self.stations[trip][1] += 1
+        else:
+            self.stations[trip] = [t - startTime, 1]
 
     def getAverageTime(self, startStation: str, endStation: str) -> float:
-        key = (startStation, endStation)
-        return self.stations[key][0] / self.stations[key][1]
+        trip = startStation, endStation
+        return self.stations[trip][0] / self.stations[trip][1]
 
 
 # Your UndergroundSystem object will be instantiated and called as such:
