@@ -13,9 +13,4 @@ class Solution:
                     o_count += 1
                 if o_count > 0 and e_count / o_count <= original:
                     ans += 1
-            if nums[start] % 2 == 0:
-                e_count -= 1
-            else:
-                o_count -= 1
-            
         return ans
