@@ -6,9 +6,6 @@ class Solution:
         discounts.sort(reverse=True)
         k = min(n, m)
         ans = sum(prices[k:])
-        i = j = 0
-        while i < n and j < m:
-            ans += prices[i] * (1 - discounts[j] / 100)
-            i += 1
-            j += 1
+        for p in range(k):
+            ans += prices[p] * (1 - discounts[p] / 100)
         return ans
