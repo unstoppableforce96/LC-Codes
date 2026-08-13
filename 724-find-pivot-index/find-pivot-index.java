@@ -1,14 +1,14 @@
 class Solution {
     public int pivotIndex(int[] nums) {
-        for (int i = 0; i < nums.length; i++) {
-            int leftSum = 0;
-            int rightSum = 0;
-            for (int j = i - 1; j >= 0; j--) {
-                leftSum += nums[j];
-            }
-            for (int j = i + 1; j < nums.length; j++) {
-                rightSum += nums[j];
-            }
+        int n = nums.length;
+        // Compute the prefix array
+        int[] prefix = new int[n + 1];
+        for (int i = 0; i < n; i++) {
+            prefix[i + 1] = prefix[i] + nums[i];
+        }
+        for (int i = 0; i < n; i++) {
+            int leftSum = prefix[i];
+            int rightSum = prefix[n] - prefix[i + 1];
             if (leftSum == rightSum) {
                 return i;
             }
