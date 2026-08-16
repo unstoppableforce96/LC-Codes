@@ -1,21 +1,23 @@
 class Solution {
     public int[] productExceptSelf(int[] nums) {
         int n = nums.length;
-        int[] prefixProd = new int[n];
-        prefixProd[0] = 1;
-        for (int i = 1; i < n; i++) {
-            prefixProd[i] = prefixProd[i - 1] * nums[i - 1];
-        }
-        int[] suffixProd = new int[n];
-        suffixProd[n - 1] = 1;
-        for (int i = n - 2; i >= 0; i--) {
-            suffixProd[i] = suffixProd[i + 1] * nums[i + 1];
-        }
-
         int[] ans = new int[n];
-        for (int i = 0; i < n; i++) {
-            ans[i] = prefixProd[i] * suffixProd[i];
+        
+        // 1. Build the prefix product directly into the 'ans' array
+        ans[0] = 1;
+        for (int i = 1; i < n; i++) {
+            ans[i] = ans[i - 1] * nums[i - 1];
         }
+        
+        // 2. Use a single variable to track the suffix product on the fly
+        int runningSuffix = 1;
+        for (int i = n - 1; i >= 0; i--) {
+            // ans[i] currently holds the prefix product. Multiply it by the suffix.
+            ans[i] = ans[i] * runningSuffix;
+            // Update the running suffix for the next iteration to the left
+            runningSuffix *= nums[i];
+        }
+        
         return ans;
     }
 }
