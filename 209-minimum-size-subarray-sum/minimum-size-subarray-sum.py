@@ -1,12 +1,13 @@
 class Solution:
     def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+        # Dynamic Sliding Window
+        minSize = float('inf')
         left = 0
-        curr_sum = 0
-        min_length = 10000000
+        c_sum = 0
         for right in range(len(nums)):
-            curr_sum += nums[right]
-            while curr_sum >= target:
-                curr_sum -= nums[left]
-                min_length = min(min_length, right - left + 1)
+            c_sum += nums[right]
+            while c_sum >= target:
+                c_sum -= nums[left]
+                minSize = min(right - left + 1, minSize)
                 left += 1
-        return min_length if not min_length == 10000000 else 0
+        return 0 if minSize == float('inf') else minSize
