@@ -16,7 +16,7 @@ class NumMatrix {
                 prefix[i + 1][j + 1] = top + left - overlap + current;
             }
         }
-        System.out.println(Arrays.deepToString(prefix));
+        // System.out.println(Arrays.deepToString(prefix));
     }
     
     public int sumRegion(int row1, int col1, int row2, int col2) {
