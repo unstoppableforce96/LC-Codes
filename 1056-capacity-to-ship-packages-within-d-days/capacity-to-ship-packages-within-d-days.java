@@ -1,6 +1,6 @@
 class Solution {
     public static boolean canShip(int weights[], int shipWeight, int daysHave) {
-        int daysNeeded = 0;
+        int daysNeeded = 1;
         int tSumSoFar = 0;
         for (int weight: weights) {
             if (tSumSoFar + weight <= shipWeight) {
@@ -10,9 +10,6 @@ class Solution {
                 daysNeeded++;
                 tSumSoFar = weight;
             }
-        }
-        if (tSumSoFar != 0) {
-            daysNeeded++;
         }
         return daysNeeded <= daysHave;
     }
