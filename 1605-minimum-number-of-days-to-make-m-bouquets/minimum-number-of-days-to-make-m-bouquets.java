@@ -9,6 +9,7 @@ class Solution {
                 cons++;
                 if (cons == k) {
                     m--;
+                    if (m == 0) return true;
                     cons = 0;
                 }
             }
@@ -16,7 +17,7 @@ class Solution {
                 cons = 0;
             }
         }
-        return m <= 0;
+        return false;
     }
     public static int maxBloomDay(int[] bloomDay) {
         int mx = bloomDay[0];
