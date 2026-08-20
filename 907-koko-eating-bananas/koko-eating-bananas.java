@@ -2,7 +2,7 @@ class Solution {
     public static boolean canFinish(int[] piles, int k, int h) {
         long hours = 0;
         for (int p: piles) {
-            hours += (int)Math.ceil(p * 1.0 / k);
+            hours += (p + k - 1) / k;
         }
         return hours <= h;
     }
