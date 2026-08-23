@@ -1,12 +1,8 @@
 <h2><a href="https://leetcode.com/problems/check-ascii-palindromic">Check ASCII Palindromic</a></h2> <img src='https://img.shields.io/badge/Difficulty-Easy-brightgreen' alt='Difficulty: Easy' /><hr><p>You are given a string <code>s</code> consisting of lowercase English letters.</p>
 
-<p>Construct a <strong>binary string</strong> by replacing each character in <code>s</code> with the 8-bit binary representation of its ASCII value, <strong>including leading zeros</strong>, while preserving the original order of the characters.</p>
+<p>Construct a <span data-keyword="binary-string"><strong>binary string</strong></span> by replacing each character in <code>s</code> with the 8-bit binary representation of its ASCII value, <strong>including leading zeros</strong>, while preserving the original order of the characters.</p>
 
-<p>Return <code>true</code> if the resulting binary string is a <strong>palindrome</strong>. Otherwise, return <code>false</code>.</p>
-
-<p>A <strong>binary string</strong> is a string which contains only the characters <code>&#39;0&#39;</code> and <code>&#39;1&#39;</code>.</p>
-
-<p>A <strong>palindrome</strong> is a string that reads the same forward and backward.</p>
+<p>Return <code>true</code> if the resulting binary string is a <span data-keyword="palindrome-string"><strong>palindrome</strong></span>. Otherwise, return <code>false</code>.</p>
 
 <p>&nbsp;</p>
 <p><strong class="example">Example 1:</strong></p>
