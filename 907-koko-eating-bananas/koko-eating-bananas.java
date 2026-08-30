@@ -2,7 +2,12 @@ class Solution {
     public static boolean canEat(int[] piles, int h, int k) {
         long totalHours = 0;
         for (int pile: piles) {
-            totalHours += (int)Math.ceil(pile * 1.0 / k);
+            if (pile % k == 0) {
+                totalHours += pile / k;
+            }
+            else {
+                totalHours += (pile / k) + 1;
+            }
         }
         return totalHours <= h;
     }
