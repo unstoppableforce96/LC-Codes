@@ -1,20 +1,26 @@
 class Solution {
-    public static boolean canFinish(int[] piles, int k, int h) {
-        long hours = 0;
-        for (int p: piles) {
-            hours += (p + k - 1) / k;
+    public static boolean canEat(int[] piles, int h, int k) {
+        long totalHours = 0;
+        for (int pile: piles) {
+            totalHours += (int)Math.ceil(pile * 1.0 / k);
         }
-        return hours <= h;
+        return totalHours <= h;
+    }
+    public static int getMax(int piles[]) {
+        int max = piles[0];
+        for (int pile: piles) {
+            if (pile > max) {
+                max = pile;
+            }
+        }
+        return max;
     }
     public int minEatingSpeed(int[] piles, int h) {
         int low = 1;
-        int high = piles[0];
-        for (int p: piles) {
-            high = Math.max(high, p);
-        }
+        int high = getMax(piles); // For this particular problem is max(piles)
         while (low < high) {
             int mid = (low + high) / 2;
-            if (canFinish(piles, mid, h)) {
+            if (canEat(piles, h, mid)) {
                 high = mid;
             }
             else {
