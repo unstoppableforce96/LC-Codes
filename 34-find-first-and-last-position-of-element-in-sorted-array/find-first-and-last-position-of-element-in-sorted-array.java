@@ -1,50 +1,34 @@
 class Solution {
     public int[] searchRange(int[] nums, int target) {
-        /* Lowerbound(target), the first index (from left) 
-        where we can safely insert the target to keep the
-        non-decresing property of the array 
-        to put simply: the first index where nums[index] >= target*/
-        int low = 0, high = nums.length;
-        int lowerbound = -1;
-        int upperbound = -1;
-        while (low < high) {
-            // Calculate mid
+        // Finding lowerbound (First element >= target)
+        int lowerBound = -1;
+        int low = 0, high = nums.length - 1;
+        while (low <= high) {
             int mid = (low + high) / 2;
             if (nums[mid] >= target) {
-                high = mid;
+                high = mid - 1;
             }
             else {
                 low = mid + 1;
             }
         }
-        lowerbound = low;
-        /* Upperbound(target): the last index (from left) where we can safely
-            insert the target without breaking the non-decreasing nature of 
-            the array
-            In simple words: the last index where nums[index] > target
-        */
+        lowerBound = low;
+        // Finding upperbound (First element > target)
+        int upperBound = -1;
         low = 0;
-        high = nums.length;
-        while (low < high) {
-            // mid
+        high = nums.length - 1;
+        while (low <= high) {
             int mid = (low + high) / 2;
             if (nums[mid] > target) {
-                high = mid;
+                high = mid - 1;
             }
             else {
                 low = mid + 1;
             }
         }
-        upperbound = low;
-        int[] ans = new int[2];
-        if (lowerbound == upperbound) {
-            ans[0] = -1;
-            ans[1] = -1;
-        }
-        else {
-            ans[0] = lowerbound;
-            ans[1] = upperbound - 1;
-        }
-        return ans;
+        upperBound = low;
+        System.out.println(lowerBound + " " + upperBound);
+        if (upperBound == lowerBound) return new int[]{-1, -1};
+        return new int[]{lowerBound, upperBound - 1};
     }
 }
