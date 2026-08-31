@@ -3,7 +3,7 @@ class Solution {
         // Compute the hours needed to eat all piles at k bananas / per hour speed
         long hoursNeeded = 0;
         for (int pile: piles) {
-            hoursNeeded += (int)Math.ceil(1d * pile / k);
+            hoursNeeded += (int)Math.ceil(1.0 * pile / k);
         }
         return hoursNeeded <= hoursHave;
     }
@@ -27,6 +27,6 @@ class Solution {
                 low = mid + 1;
             }
         }
-        return low;
+        return high;
     }
 }
