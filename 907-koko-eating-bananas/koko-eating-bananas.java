@@ -18,7 +18,7 @@ class Solution {
         // Binary Search on Answer
         int low = 1;
         int high = getMax(piles); // max(piles)
-        while (low < high) {
+        while (low < high) { // Low == high
             int mid = (low + high) / 2;
             if (canEat(piles, h, mid)) {
                 high = mid;
