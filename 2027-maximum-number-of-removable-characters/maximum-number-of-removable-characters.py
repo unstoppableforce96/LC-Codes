@@ -1,20 +1,17 @@
-def issubseq(s, t, remove, k):
+def issubseq(s, p, removable, k):
 
-    s = s.copy()
+    removed = set(removable[:k])
 
-    for i in range(k):
-        s[remove[i]] = '-'
+    i = j = 0
 
-    i, j = 0, 0
+    while i < len(s) and j < len(p):
 
-    while i < len(s) and j < len(t):
-        if s[i] == t[j]:
-            i += 1
+        if i not in removed and s[i] == p[j]:
             j += 1
-        else:
-            i += 1
 
-    return j == len(t)
+        i += 1
+
+    return j == len(p)
 
 
 class Solution:
