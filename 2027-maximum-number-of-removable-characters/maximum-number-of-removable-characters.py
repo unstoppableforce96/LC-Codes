@@ -1,36 +1,22 @@
-def issubseq(s, p, removable, k):
-
-    removed = set(removable[:k])
-
-    i = j = 0
-
-    while i < len(s) and j < len(p):
-
-        if i not in removed and s[i] == p[j]:
-            j += 1
-
-        i += 1
-
-    return j == len(p)
-
-
 class Solution:
-
     def maximumRemovals(self, s: str, p: str, removable: List[int]) -> int:
+        l, r = 0, len(removable)
 
-        low = 0
-        high = len(removable)
+        def isEnough(k):
+            s_arr = list(s)
+            for i in removable[:k]:
+                s_arr[i] = ''
+            return isSubsequence(p, s_arr)
+            
+        def isSubsequence(s, t):
+            t = iter(t)
+            return all(c in t for c in s)
 
-        s = list(s)
-        t = list(p)
-
-        while low < high:
-
-            mid = (low + high + 1) // 2
-
-            if issubseq(s, t, removable, mid):
-                low = mid
+        while l < r:
+            m = (l+r+1)//2
+            if isEnough(m):
+                l = m
             else:
-                high = mid - 1
-
-        return low
+                r = m - 1
+        
+        return l
