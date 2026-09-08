@@ -3,13 +3,10 @@ class Solution:
         st = []
         d = {}
         for i in nums2:
-            if not st:
-                st.append(i)
-            else:
-                while st and i > st[-1]:
-                    d[st[-1]] = i
-                    st.pop()
-                st.append(i)
+            while st and i > st[-1]:
+                d[st[-1]] = i
+                st.pop()
+            st.append(i)
         for i in st:
             d[i] = -1
         ans = []
