@@ -1,5 +1,5 @@
 def feasible(nums, k, guess_sum):
-    needed_k = 0
+    needed_k = 1
     current_sum = 0
     for i in range(len(nums)):
         if current_sum + nums[i] > guess_sum:
@@ -7,8 +7,6 @@ def feasible(nums, k, guess_sum):
             current_sum = nums[i]
         else:
             current_sum += nums[i]
-    if current_sum != 0:
-        needed_k += 1
     return needed_k <= k
         
 class Solution:
