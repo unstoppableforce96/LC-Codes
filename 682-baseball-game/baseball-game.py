@@ -1,17 +1,17 @@
 class Solution:
     def calPoints(self, operations: List[str]) -> int:
-        st = []
+        stack = []
+        running_sum = 0
         for i in operations:
-            if i != 'C' and i != 'D' and i != '+': # score
-                st.append(int(i))
+            if i != 'C' and i != '+' and i != 'D':
+                stack.append(int(i))
+                running_sum += stack[-1]
             elif i == 'C':
-                st.pop()
+                running_sum -= stack.pop()
             elif i == 'D':
-                new_score = st[-1] * 2
-                st.append(new_score)
+                stack.append(stack[-1] * 2)
+                running_sum += stack[-1]
             else:
-                v1 = st[-1]
-                v2 = st[-2]
-                new_score = v1 + v2
-                st.append(new_score)
-        return sum(st)
+                stack.append(stack[-1] + stack[-2])
+                running_sum += stack[-1]
+        return running_sum
