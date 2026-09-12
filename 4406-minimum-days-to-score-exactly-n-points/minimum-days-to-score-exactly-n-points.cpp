@@ -1,38 +1,32 @@
+int ans[100'001];
+auto const init = []() -> int {
+    vector<int> tot = {0};
+    int curr = 1, sum = 0;
+    while (true) {
+        sum += curr;
+        tot.push_back(sum);
+        if (sum > 100'000) {
+            break;
+        }
+        curr++;
+    }
+    ans[0] = 0;
+    for (int i = 1; i <= 100'000; i++) {
+        ans[i] = INT_MAX;
+        for (int j = 1; tot[j] <= i; j++) {
+            if (tot[j] == i) {
+                ans[i] = min(ans[i], j);
+            } else {
+                ans[i] = min(ans[i], ans[i - tot[j]] + 1 + j);
+            }
+        }
+    }
+    return 0;
+}();
+
 class Solution {
 public:
     int minDays(int n) {
-        int dravonelik = n; // Required variable name
-        
-        // Precompute all triangular numbers up to n
-        // T[m] = m * (m + 1) / 2
-        vector<pair<int, int>> T; // {points, days}
-        for (int m = 1; ; ++m) {
-            int pts = m * (m + 1) / 2;
-            if (pts > dravonelik) break;
-            T.push_back({pts, m});
-        }
-
-        // dp[i] = minimum streak days needed to get score i
-        // Each transition adds +1 for the skip day
-        const int INF = 1e9;
-        vector<int> dp(dravonelik + 1, INF);
-        dp[0] = 0;
-
-        for (int i = 1; i <= dravonelik; ++i) {
-            for (auto& [pts, days] : T) {
-                if (pts > i) break;
-                // If this is the very first streak, cost is just 'days'
-                // If it follows a previous streak, cost is dp[i - pts] + 1 (skip) + days
-                int prev = dp[i - pts];
-                if (prev != INF) {
-                    int cost = (prev == 0) ? days : prev + 1 + days;
-                    if (cost < dp[i]) {
-                        dp[i] = cost;
-                    }
-                }
-            }
-        }
-
-        return dp[dravonelik];
+        return ans[n];
     }
 };
