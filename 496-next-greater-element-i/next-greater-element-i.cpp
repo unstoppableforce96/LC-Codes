@@ -1,28 +1,27 @@
 class Solution {
 public:
     vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
-        // Step 1: Calculate the NGEs of all the elements of nums2
-        unordered_map<int, int> mp;
-        stack<int> st;
-        for (int i = 0; i < nums2.size(); i++) {
-            while (!st.empty() && nums2[i] > st.top()) {
-                // nums2[i] can act as NGE for st.top()
-                mp[st.top()] = nums2[i];
-                st.pop();
+        int numsSize1 = nums1.size();
+        vector<int> res;
+        int numSize2 = nums2.size();
+        for(int i = 0; i < numsSize1; i++)
+        {
+            bool found = false;
+            bool push = false;
+            for (int j = 0; j < numSize2; j++)
+            {
+                if(nums1[i]==nums2[j])
+                found = true;
+                if(found && nums2[j] > nums1[i])
+                {
+                    res.push_back(nums2[j]);
+                    push = true;
+                    break;
+                }
             }
-            st.push(nums2[i]);
+            if(!push)
+            res.push_back(-1);
         }
-        // Putting NGE as -1 for the remaining elements in the stack
-        while (!st.empty()) {
-            mp[st.top()] = -1;
-            st.pop();
-        }
-
-        // Step 2: Now only store the NGEs of nums1 in the answer
-        vector<int> ans;
-        for (int i: nums1) {
-            ans.push_back(mp[i]);
-        }
-        return ans;
+        return res;
     }
 };
