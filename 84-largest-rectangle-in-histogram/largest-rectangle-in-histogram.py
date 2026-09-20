@@ -6,7 +6,8 @@ class Solution:
         st = []
         for i in range(len(heights)):
             while st and heights[i] < heights[st[-1]]:
-                nse[st.pop()] = i
+                popped = st.pop()
+                nse[popped] = i
             st.append(i)
         st.clear()
         for i in range(len(heights) - 1, -1, -1):
