@@ -7,11 +7,12 @@ class RecentCounter {
     
     public int ping(int t) {
         int expiredRequsts = 0;
-        // Remove all expired pings (pings < t - 3000) from front (Dequeue)
+        // Remove all expired pings (ping < t - 3000) from front (Dequeue)
         while (!q.isEmpty() && q.peek() < t - 3000) {
             q.poll();
             counter--;
         }
+        // Add current ping
         q.offer(t);
         counter++;
         return counter;
