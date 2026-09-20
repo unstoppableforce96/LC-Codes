@@ -5,7 +5,7 @@ class Solution:
         pse = [-1] * n
         st = []
         for i in range(len(heights)):
-            while st and heights[i] < heights[st[-1]]:
+            while st and heights[i] <= heights[st[-1]]:
                 popped = st.pop()
                 nse[popped] = i
             st.append(i)
