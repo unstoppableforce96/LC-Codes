@@ -1,29 +1,37 @@
+#include<iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
 class Solution {
 public:
     vector<int> maxSlidingWindow(vector<int>& nums, int k) {
         int n = nums.size();
-        vector<int> ans;
-        ans.reserve(n - k + 1);
+        vector<int> left(n), right(n);
+        for (int i = 0; i < n; i++) {
 
-        // Pre-allocate a flat array as our deque
-        vector<int> q(n);
-        int head = 0, tail = 0; // head..tail is the deque range
+            if (i % k == 0) left[i] = nums[i];
 
-        for (int i = 0; i < n; ++i) {
-            // Remove out-of-bound indices
-            if (head < tail && q[head] <= i - k) {
-                head++;
-            }
-            // Maintain monotonic order
-            while (head < tail && nums[q[tail - 1]] < nums[i]) {
-                tail--;
-            }
-            q[tail++] = i;
-
-            if (i >= k - 1) {
-                ans.push_back(nums[q[head]]);
-            }
+            else
+             left[i] = max(left[i - 1], nums[i]);
         }
-        return ans;
+
+
+
+        right[n - 1] = nums[n - 1];
+        for (int i = n - 2; i >= 0; i-- ) {
+            if ((i + 1) % k == 0) right[i] = nums[i];
+
+            else
+             right[i] = max(right[i + 1], nums[i]);
+        }
+
+        vector<int> result(n - k + 1);
+        for (int i = 0; i <= n - k; ++i) {
+            result[i] = max(right[i], left[i + k - 1]);
+        }
+
+        return result;
     }
 };
