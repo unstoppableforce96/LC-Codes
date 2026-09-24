@@ -1,26 +1,28 @@
 class Solution {
 public:
     vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        int n = nums.size();
         vector<int> ans;
-        deque<int> d;
-        d.push_back(0);
-        for (int i = 1; i < k; i++) {
-            while (!d.empty() && nums[d.back()] < nums[i]) {
-                d.pop_back();
+        ans.reserve(n - k + 1);
+
+        // Pre-allocate a flat array as our deque
+        vector<int> q(n);
+        int head = 0, tail = 0; // head..tail is the deque range
+
+        for (int i = 0; i < n; ++i) {
+            // Remove out-of-bound indices
+            if (head < tail && q[head] <= i - k) {
+                head++;
             }
-            d.push_back(i);
-        }
-        ans.push_back(nums[d.front()]);
-        for (int i = k; i < nums.size(); i++) {
-            if (d.front() == i - k) {
-                d.pop_front();
+            // Maintain monotonic order
+            while (head < tail && nums[q[tail - 1]] < nums[i]) {
+                tail--;
             }
-            // Continue removing weak elements from left
-            while (!d.empty() && nums[d.back()] < nums[i]) {
-                d.pop_back();
+            q[tail++] = i;
+
+            if (i >= k - 1) {
+                ans.push_back(nums[q[head]]);
             }
-            d.push_back(i);
-            ans.push_back(nums[d.front()]);
         }
         return ans;
     }
