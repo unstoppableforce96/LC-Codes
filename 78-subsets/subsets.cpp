@@ -6,10 +6,16 @@ public:
         int n = nums.size();
         for (int mask = 0; mask < (1 << n); mask++) {
             vector<int> current;
-            for (int i = 0; i < n; i++) {
-                if ((mask >> i) & 1) {
-                    current.push_back(nums[i]);
+            int temp = mask;
+            int k = 0;
+            while (k < n) {
+                if (temp % 2 == 1) {
+                    current.push_back(nums[k++]);
                 }
+                else {
+                    k++;
+                }
+                temp /= 2;
             }
             result.push_back(current);
         }
