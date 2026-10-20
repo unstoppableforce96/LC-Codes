@@ -12,7 +12,7 @@ class Solution:
             generate(index + 1, current, remaining - candidates[index])
             current.pop()
             next_index = index + 1
-            while next_index < len(candidates) - 1 and candidates[next_index] == candidates[index]:
+            while next_index < len(candidates) and candidates[next_index] == candidates[index]:
                 next_index += 1
             generate(next_index, current, remaining)
         
