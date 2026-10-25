@@ -4,16 +4,10 @@ def get_max(n):
     return int(''.join(lst))
 class Solution:
     def maximizeSum(self, nums: list[int], k: int) -> int:
-        new = []
         ans = 0
-        for i in nums:
-            inner = [i, get_max(i)]
-            inner.sort(reverse=True)
-            new.append(inner)
-        new.sort(reverse=True)
         diff = []
-        for i in new:
-            diff.append(i[0] - i[1])
+        for i in nums:
+            diff.append(get_max(i) - i)
         ans = sum(nums)
         diff.sort(reverse=True)
         for i in range(k):
